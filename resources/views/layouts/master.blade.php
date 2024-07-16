@@ -53,7 +53,7 @@
 
     </head>
     <body class="antialiased">
-        <div class="pre-loader">
+        <div class="pre-loader" >
             <div class="pre-loader-box">
                 <div class="loader-logo"></div>
                 <div class="loader-progress" id="progress_div">

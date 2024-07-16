@@ -28,3 +28,4 @@ Route::get('/pos', function(){
 })->name('pos');
 
 //Route::resource('products', ProductController::class);
+Route::get('/productList', [App\Http\Controllers\HomeController::class, 'listProduct'])->name('productList');

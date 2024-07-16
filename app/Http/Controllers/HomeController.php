@@ -25,4 +25,7 @@ class HomeController extends Controller
     {
         return view('layouts.master');
     }
+    public function listProduct(){
+        return view('products');
+    }
 }

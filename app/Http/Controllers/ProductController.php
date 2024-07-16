@@ -25,24 +25,33 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('products.create');
+        return response()->json(['message' => 'Show create form ']);
     }
 
     public function store(ProductRequest $request)
     {
-        $this->productService->createProduct($request->validated());
-        return redirect()->route('layouts.pages.products.index');
+        $image_path = '';
+
+        if ($request->hasFile('product_image')) {
+            $image_path = $request->file('product_image')->store('products', 'public');
+        }
+        $product=$this->productService->createProduct($request->validated());
+        return response()->json($product);
+    }
+    public function edit($product_id){
+        $product=$this->productService->getProductById($product_id);
+        return response()->json($product);
+    }
+   
+    public function update(ProductRequest $request)
+    {
+        $product=$this->productService->updateProduct($request->product_id,$request->validated());
+        return response()->json($product);
     }
 
-    public function update(ProductRequest $request, Product $product)
+    public function destroy($product_id)
     {
-        $this->productService->updateProduct($product, $request->validated());
-        return redirect()->route('layouts.pages.products.index');
-    }
-
-    public function destroy(Product $product)
-    {
-        $this->productService->deleteProduct($product);
-        return redirect()->route('layouts.pages.products.index');
+        $this->productService->deleteProduct($product_id);
+        return response()->json(['message' => 'Product Deleted Successfully!! ']);
     }
 }
